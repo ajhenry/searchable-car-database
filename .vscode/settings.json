@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "C:\\Users\\imand\\.virtualenvs\\complete-car-database-gFX8fOtg\\Scripts\\python.exe"
+    "python.pythonPath": "C:\\Users\\imand\\.virtualenvs\\complete-car-database-gFX8fOtg\\Scripts\\python.exe",
+    "python.formatting.provider": "black"
 }

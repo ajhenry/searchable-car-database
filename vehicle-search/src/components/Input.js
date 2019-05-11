@@ -23,13 +23,13 @@ export default class LabeledInput extends React.Component {
   };
 
   render() {
-    const { data, title, onChange, selected } = this.props;
+    const { data, title, onChange, selected, name } = this.props;
     return (
       <Form>
         <FormGroup>
           <Label for="exampleSelect">{title}</Label>
           <Input type="select" {...this.props}>
-          <option>Select a make</option>
+            <option>Select a {name}</option>
             {data.map(option => {
               return <option>{option}</option>;
             })}

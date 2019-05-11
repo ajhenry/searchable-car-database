@@ -1,8 +1,8 @@
 import React from "react";
 import "./Search.css";
 import { Container, Row, Col, Button } from "reactstrap";
-import Input from "../../components/Input";
-import db from "../../database/database";
+import { Input, Item } from "../../components";
+import { db, makeData, description } from "../../database";
 
 class Search extends React.Component {
   constructor(props) {
@@ -17,144 +17,7 @@ class Search extends React.Component {
       model: null,
       year: null,
       type: null,
-      makeData: [
-        "Mcevoy Motors",
-        "VPG",
-        "Lambda Control Systems",
-        "Bentley",
-        "Oldsmobile",
-        "CX Automotive",
-        "Ferrari",
-        "Import Foreign Auto Sales Inc",
-        "Mahindra",
-        "Saleen",
-        "S and S Coach Company  E.p. Dutton",
-        "Genesis",
-        "MINI",
-        "Rolls-Royce",
-        "Suzuki",
-        "London Coach Co Inc",
-        "Isis Imports Ltd",
-        "Nissan",
-        "American Motors Corporation",
-        "Kia",
-        "Infiniti",
-        "Wallace Environmental",
-        "Aurora Cars Ltd",
-        "GMC",
-        "Geo",
-        "Mercedes-Benz",
-        "CODA Automotive",
-        "Chevrolet",
-        "Jaguar",
-        "Peugeot",
-        "Maserati",
-        "CCC Engineering",
-        "Environmental Rsch and Devp Corp",
-        "Saab",
-        "Tesla",
-        "BMW Alpina",
-        "Yugo",
-        "Vixen Motor Company",
-        "Red Shift Ltd.",
-        "Ruf Automobile Gmbh",
-        "Bugatti",
-        "Autokraft Limited",
-        "Karma",
-        "Vector",
-        "TVR Engineering Ltd",
-        "Pagani",
-        "Land Rover",
-        "Dodge",
-        "Fisker",
-        "Excalibur Autos",
-        "J.K. Motors",
-        "JBA Motorcars, Inc.",
-        "Azure Dynamics",
-        "Sterling",
-        "Morgan",
-        "Lotus",
-        "Plymouth",
-        "Dabryan Coach Builders Inc",
-        "Federal Coach",
-        "Porsche",
-        "Shelby",
-        "Hyundai",
-        "Panoz Auto-Development",
-        "Laforza Automobile Inc",
-        "Dacia",
-        "Avanti Motor Corporation",
-        "BMW",
-        "PAS Inc - GMC",
-        "smart",
-        "Merkur",
-        "Honda",
-        "Panther Car Company Limited",
-        "Scion",
-        "Quantum Technologies",
-        "Grumman Olson",
-        "Pininfarina",
-        "Aston Martin",
-        "Texas Coach Company",
-        "General Motors",
-        "E. P. Dutton, Inc.",
-        "Isuzu",
-        "Bill Dovell Motor Car Company",
-        "Buick",
-        "AM General",
-        "McLaren Automotive",
-        "Volvo",
-        "London Taxi",
-        "Lamborghini",
-        "PAS, Inc",
-        "Mercury",
-        "SRT",
-        "Audi",
-        "Pontiac",
-        "Fiat",
-        "Spyker",
-        "Cadillac",
-        "Jeep",
-        "Mitsubishi",
-        "Hummer",
-        "Acura",
-        "Saleen Performance",
-        "Import Trade Services",
-        "Ram",
-        "Kenyon Corporation Of America",
-        "Maybach",
-        "Lexus",
-        "Qvale",
-        "Evans Automobiles",
-        "BYD",
-        "Bertone",
-        "Toyota",
-        "RUF Automobile",
-        "Daihatsu",
-        "Consulier Industries Inc",
-        "Tecstar, LP",
-        "Volga Associated Automobile",
-        "Koenigsegg",
-        "Volkswagen",
-        "Renault",
-        "Saturn",
-        "Mazda",
-        "Roush Performance",
-        "Lincoln",
-        "Alfa Romeo",
-        "Daewoo",
-        "Goldacre",
-        "Eagle",
-        "Superior Coaches Div E.p. Dutton",
-        "ASC Incorporated",
-        "Bitter Gmbh and Co. Kg",
-        "Ford",
-        "Subaru",
-        "Grumman Allied Industries",
-        "Mobility Ventures LLC",
-        "Chrysler",
-        "Panos"
-      ].sort(),
+      makeData,
       modelData: [],
       yearData: [],
       typeData: [],
@@ -185,56 +48,6 @@ class Search extends React.Component {
     });
   };
 
-  _searchDB = () => {
-    db.createIndex({
-      index: {
-        fields: ["year"]
-      }
-    })
-      .then(function(result) {
-        console.log(`Created year index`);
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-
-    db.createIndex({
-      index: {
-        fields: ["make"]
-      }
-    })
-      .then(function(result) {
-        console.log(`Created make index`);
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-
-    db.createIndex({
-      index: {
-        fields: ["make", "year"]
-      }
-    })
-      .then(function(result) {
-        console.log(`Created make index`);
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-
-    db.find({
-      selector: { make: "Honda" },
-      fields: ["make", "year", "model", "trany", "displ"],
-      sort: ["make"]
-    })
-      .then(function(result) {
-        console.log(result);
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-  };
-
   breakType = type => {
     const data = type.split(" L - ");
     return { displ: data[0], trany: data[1] };
@@ -261,8 +74,7 @@ class Search extends React.Component {
     }
 
     db.find({
-      selector: searchQuery,
-      fields: ["make", "year", "model", "trany", "displ"]
+      selector: searchQuery
     })
       .then(result => {
         console.log(result);
@@ -314,7 +126,7 @@ class Search extends React.Component {
     if (name === "make") {
       console.log(`Name is make`);
       this.setState(
-        { [name]: value, model: null, year: null, type: null },
+        { [name]: value, model: null, year: null, type: null, carData: null },
         this._searchByData
       );
     }
@@ -322,7 +134,7 @@ class Search extends React.Component {
     if (name === "model") {
       console.log(`Name is model`);
       this.setState(
-        { [name]: value, year: null, type: null },
+        { [name]: value, year: null, type: null, carData: null },
         this._searchByData
       );
     }
@@ -332,7 +144,8 @@ class Search extends React.Component {
       this.setState(
         {
           [name]: value,
-          type: null
+          type: null,
+          carData: null
         },
         this._searchByData
       );
@@ -399,17 +212,15 @@ class Search extends React.Component {
         ) : null}
         {carData
           ? Object.keys(carData).map((key, index) => {
-              return <span>{`${key} - ${carData[key]}`}</span>;
+              return (
+                <Item
+                  id={key}
+                  value={carData[key]}
+                  description={description[key]}
+                />
+              );
             })
           : null}
-
-        <div className="d-flex flex-row justify-content-between">
-          <Button onClick={this._startDB}>Start DB</Button>
-          <Button onClick={this._populateDB}>Populate DB</Button>
-          <Button onClick={this._deleteDB}>Delete DB</Button>
-          <Button onClick={this._checkDB}>Check DB</Button>
-        </div>
-        <Button onClick={this._searchDB}>Search</Button>
       </Container>
     );
   };

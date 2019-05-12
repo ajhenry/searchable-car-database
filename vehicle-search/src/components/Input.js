@@ -22,14 +22,14 @@ export default props => {
 const customStyles = {
   option: (provided, state) => ({
     ...provided,
-    background: state.isSelected ? "#DCDCDC" : "#f5f5f5",
+    background: state.isSelected ? "#DCDCDC" : "#E8E8E8",
     padding: 10,
     borderBottom: "0px",
     color: "#000"
   }),
   control: (provided, state) => ({
     ...provided,
-    background: "#f5f5f5",
+    background: "#E8E8E8",
     border: "0px",
     borderRadius: "10px",
     boxShadow: "none"
@@ -41,7 +41,7 @@ const customStyles = {
   }),
   menu: (provided, state) => ({
     ...provided,
-    background: "#f5f5f5",
+    background: "#E8E8E8",
     boxShadow: "none",
     marginTop: "10px",
     padding: 0,

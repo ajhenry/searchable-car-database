@@ -136,7 +136,10 @@ class Search extends React.Component {
     } = this.state;
     console.log(description);
     return (
-      <Container className="d-flex flex-fill flex-column align-items-center justify-content-center">
+      <Container
+        fluid
+        className="d-flex flex-fill flex-column align-items-center justify-content-center"
+      >
         <Row className="w-100">
           <div className="col-lg col-xl col-md-12 col-sm-12 col-xs-12 my-1">
             <Input

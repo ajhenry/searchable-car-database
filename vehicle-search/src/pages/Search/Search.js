@@ -1,10 +1,10 @@
-import React from "react";
-import "./Search.css";
-import { Container, Row, Col, Button } from "reactstrap";
+import React, { Component } from "react";
+import { Container, Row } from "reactstrap";
 import { Input, Item } from "../../components";
-import { db, makeData, description } from "../../database";
+import { db, description, makeData } from "../../database";
+import "./Search.css";
 
-class Search extends React.Component {
+class Search extends Component {
   constructor(props) {
     super(props);
 
@@ -21,7 +21,7 @@ class Search extends React.Component {
     };
   }
 
-  breakType = type => {
+  _breakType = type => {
     const data = type.split(" L - ");
     return { displ: data[0], trany: data[1] };
   };
@@ -42,7 +42,7 @@ class Search extends React.Component {
       searchQuery = { make, model, year };
       listType = "type";
     } else {
-      searchQuery = { make, model, year, ...this.breakType(type) };
+      searchQuery = { make, model, year, ...this._breakType(type) };
       listType = "car";
     }
 
@@ -50,7 +50,6 @@ class Search extends React.Component {
       selector: searchQuery
     })
       .then(result => {
-        console.log(result);
         this._generateDataLists(result, listType);
       })
       .catch(err => {
@@ -59,7 +58,6 @@ class Search extends React.Component {
   };
 
   _generateDataLists = (data, listType) => {
-    console.log(listType);
     let { modelData, yearData, typeData, carData } = this.state;
     if (listType === "make") {
       modelData = [...new Set(data.docs.map(vehicle => vehicle.model))].sort();
@@ -80,11 +78,7 @@ class Search extends React.Component {
 
   _handleInputChange = selectedOption => {
     const { name, value } = selectedOption;
-    console.log(selectedOption);
-    console.log(`name: ${name}`);
-    console.log(`value: ${value}`);
     if (name === "make") {
-      console.log(`Name is make`);
       this.setState(
         { [name]: value, model: null, year: null, type: null, carData: null },
         this._searchByData
@@ -92,7 +86,6 @@ class Search extends React.Component {
     }
 
     if (name === "model") {
-      console.log(`Name is model`);
       this.setState(
         { [name]: value, year: null, type: null, carData: null },
         this._searchByData
@@ -100,7 +93,6 @@ class Search extends React.Component {
     }
 
     if (name === "year") {
-      console.log(`Name is year`);
       this.setState(
         {
           [name]: value,
@@ -112,7 +104,6 @@ class Search extends React.Component {
     }
 
     if (name === "type") {
-      console.log(`Name is type`);
       this.setState(
         {
           [name]: value
@@ -134,14 +125,13 @@ class Search extends React.Component {
       typeData,
       carData
     } = this.state;
-    console.log(description);
     return (
       <Container
         fluid
         className="d-flex flex-fill flex-column align-items-center justify-content-center"
       >
-        <Row className="w-100">
-          <div className="col-lg col-xl col-md-12 col-sm-12 col-xs-12 my-1">
+        <Row className="w-100 justify-content-center">
+          <div className="col-lg-6 col-xl-6 col-md-12 col-sm-12 col-xs-12 my-1">
             <Input
               data={makeData}
               title="Select a make"
@@ -163,9 +153,9 @@ class Search extends React.Component {
             </div>
           ) : null}
         </Row>
-        <Row className="w-100">
+        <Row className="w-100 justify-content-center">
           {model && make && yearData ? (
-            <div className="col-lg col-xl col-md-12 col-sm-12 col-xs-12 my-1">
+            <div className="col-lg-6 col-xl-6 col-md-12 col-sm-12 col-xs-12 my-1">
               <Input
                 data={yearData}
                 title="Select a year"
@@ -190,17 +180,14 @@ class Search extends React.Component {
         <Row className="justify-content-center my-2">
           {carData
             ? Object.keys(carData).map((key, index) => {
-                console.log(description[key]);
-
                 return description[key] ? (
-                  <div className="">
-                    <Item
-                      id={key}
-                      value={carData[key]}
-                      description={description[key].description}
-                      properName={description[key].properName}
-                    />
-                  </div>
+                  <Item
+                    id={key}
+                    key={index}
+                    value={carData[key]}
+                    description={description[key].description}
+                    properName={description[key].properName}
+                  />
                 ) : null;
               })
             : null}

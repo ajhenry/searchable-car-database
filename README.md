@@ -1,7 +1,39 @@
-# complete-car-database
-This is a database that lists detailed information for all cars from 1987-2020 in CSV format
+# Searchable Car Database
+
+This is a searchable car database with 40,000+ entries from 1987-2019. Includes data items like make, model, year, transmission type, fuel economy data, etc. There are two different formats you can download the dataset in, JSON and CSV. There is also a link to a react app that utilizes the data along with [PouchDb](https://pouchdb.com/) to create a browser based database with indexing.
+
+__Note:__ The dataset that is used to populate the database for the search webapp takes awhile to load into browser memory and create indexes on
+
+All data is from [fueleconomy.gov](fueleconomy.gov) and you may download this dataset from their [website](https://www.fueleconomy.gov/feg/download.shtml) too.
+
+## Getting Started
+
+`parser.py` is used to transform the data from CSV to JSON format. Use `parser.py --help` to see a list of required inputs\
+
+```sh
+pip install pipenv
+pipenv shell
+pipenv install
+python parser.py [args]
+```
+
+The react app and accompanying database is under `vehicle-search/`
+
+### Installing
+
+To get the react app up and running, follow the README found under `vehicle-search/`
+
+## Built With
+
+* [PouchDb](https://pouchdb.com/) - The database that houses the 40,000+ entries in browser
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 # Information
+
+This is the list of descriptions for the csv headers
 
     atvtype - type of alternative fuel or advanced technology vehicle
     barrels08 - annual petroleum consumption in barrels for fuelType1 (1)

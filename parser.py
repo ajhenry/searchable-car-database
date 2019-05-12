@@ -1,5 +1,5 @@
 """
-This file is used to parse through the data given and turn it into a readable format
+This file is used to parse through the data given and turn it into a another format(JSON, etc)
 """
 
 import argparse

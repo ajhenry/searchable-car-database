@@ -1,11 +1,8 @@
 import React from "react";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 import Select from "react-select";
 
 export default props => {
-  const { data, name, value } = props;
-  console.log(data);
-  console.log(value);
+  const { data, name } = props;
   return (
     <Select
       options={data.map(option => {
@@ -33,11 +30,9 @@ const customStyles = {
     border: "0px",
     borderRadius: "10px",
     boxShadow: "none"
-    // none of react-select's styles are passed to <Control />
   }),
   input: provided => ({
-    ...provided,
-    color: "#DCDCDC"
+    ...provided
   }),
   menu: (provided, state) => ({
     ...provided,

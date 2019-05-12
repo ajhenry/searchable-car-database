@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import "./App.css";
-import { Container } from "reactstrap";
-import Search from "./Search/Search";
 import { Header } from "../components";
+import "./App.css";
 import LoadDb from "./LoadDb/LoadDb";
+import Search from "./Search/Search";
 
 const App = () => {
   const [loaded, setLoaded] = useState(false);

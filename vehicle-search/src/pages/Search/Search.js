@@ -8,10 +8,6 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
 
-    db.info().then(function(info) {
-      console.log(info);
-    });
-
     this.state = {
       make: null,
       model: null,
@@ -24,29 +20,6 @@ class Search extends React.Component {
       carData: null
     };
   }
-
-  _startDB = async () => {};
-
-  _populateDB = async () => {
-    //this._populateDatabase(data);
-  };
-
-  _deleteDB = async () => {
-    db.destroy()
-      .then(function(response) {
-        console.log(`Successfully destroyed database`);
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-  };
-
-  _checkDB = () => {
-    console.log("Hello");
-    db.info().then(function(info) {
-      console.log(info);
-    });
-  };
 
   breakType = type => {
     const data = type.split(" L - ");
@@ -102,27 +75,14 @@ class Search extends React.Component {
       carData = data.docs[0];
     }
 
-    console.log(modelData);
-    console.log(yearData);
     this.setState({ modelData, yearData, typeData, carData });
   };
 
-  _populateDatabase = async data => {
-    db.bulkDocs(data)
-      .then(function(response) {
-        // handle response
-        console.log(`Finished ${response}`);
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-  };
-
-  _handleInputChange = event => {
-    const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-    console.log(name);
+  _handleInputChange = selectedOption => {
+    const { name, value } = selectedOption;
+    console.log(selectedOption);
+    console.log(`name: ${name}`);
+    console.log(`value: ${value}`);
     if (name === "make") {
       console.log(`Name is make`);
       this.setState(
@@ -174,53 +134,74 @@ class Search extends React.Component {
       typeData,
       carData
     } = this.state;
+    console.log(description);
     return (
       <Container className="d-flex flex-fill flex-column align-items-center justify-content-center">
-        <Input
-          data={makeData}
-          title="Select a make"
-          selected={make}
-          onChange={this._handleInputChange}
-          name="make"
-        />
-        {make && modelData ? (
-          <Input
-            data={modelData}
-            title="Select a model"
-            value={model}
-            onChange={this._handleInputChange}
-            name="model"
-          />
-        ) : null}
-        {model && make && yearData ? (
-          <Input
-            data={yearData}
-            title="Select a year"
-            value={year}
-            onChange={this._handleInputChange}
-            name="year"
-          />
-        ) : null}
-        {model && make && year && typeData ? (
-          <Input
-            data={typeData}
-            title="Select a type"
-            value={type}
-            onChange={this._handleInputChange}
-            name="type"
-          />
-        ) : null}
-        {carData
-          ? Object.keys(carData).map((key, index) => {
-              return (
-                <Item
-                  id={key}
-                  value={carData[key]}
-                  description={description[key]}
-                />
-              );
-            })
-          : null}
+        <Row className="w-100">
+          <div className="col-lg col-xl col-md-12 col-sm-12 col-xs-12 my-1">
+            <Input
+              data={makeData}
+              title="Select a make"
+              selected={make}
+              onChange={this._handleInputChange}
+              name="make"
+            />
+          </div>
+
+          {make && modelData ? (
+            <div className="col-lg col-xl col-md-12 col-sm-12 col-xs-12 my-1">
+              <Input
+                data={modelData}
+                title="Select a model"
+                selected={model}
+                onChange={this._handleInputChange}
+                name="model"
+              />
+            </div>
+          ) : null}
+        </Row>
+        <Row className="w-100">
+          {model && make && yearData ? (
+            <div className="col-lg col-xl col-md-12 col-sm-12 col-xs-12 my-1">
+              <Input
+                data={yearData}
+                title="Select a year"
+                selected={year}
+                onChange={this._handleInputChange}
+                name="year"
+              />
+            </div>
+          ) : null}
+          {model && make && year && typeData ? (
+            <div className="col-lg col-xl col-md-12 col-sm-12 col-xs-12 my-1">
+              <Input
+                data={typeData}
+                title="Select a type"
+                selected={type}
+                onChange={this._handleInputChange}
+                name="type"
+              />
+            </div>
+          ) : null}
+        </Row>
+        <Row className="justify-content-center my-2">
+          {carData
+            ? Object.keys(carData).map((key, index) => {
+                console.log(description[key]);
+
+                return description[key] ? (
+                  <div className="">
+                    <Item
+                      id={key}
+                      value={carData[key]}
+                      description={description[key].description}
+                      properName={description[key].properName}
+                    />
+                  </div>
+                ) : null;
+              })
+            : null}
+        </Row>
       </Container>
     );
   };

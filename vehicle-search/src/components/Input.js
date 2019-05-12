@@ -1,41 +1,51 @@
 import React from "react";
 import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import Select from "react-select";
 
-export default class LabeledInput extends React.Component {
-  constructor(props) {
-    super(props);
+export default props => {
+  const { data, name, value } = props;
+  console.log(data);
+  console.log(value);
+  return (
+    <Select
+      options={data.map(option => {
+        return { value: option, label: option, name };
+      })}
+      className="w-100"
+      placeholder={`Select a ${name}`}
+      styles={customStyles}
+      {...props}
+    />
+  );
+};
 
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      dropdownOpen: false
-    };
-  }
-
-  toggle() {
-    this.setState(prevState => ({
-      dropdownOpen: !prevState.dropdownOpen
-    }));
-  }
-
-  _onSelectChange = value => {
-    const { onChangeHandler } = this.props;
-    onChangeHandler(value);
-  };
-
-  render() {
-    const { data, title, onChange, selected, name } = this.props;
-    return (
-      <Form>
-        <FormGroup>
-          <Label for="exampleSelect">{title}</Label>
-          <Input type="select" {...this.props}>
-            <option>Select a {name}</option>
-            {data.map(option => {
-              return <option>{option}</option>;
-            })}
-          </Input>
-        </FormGroup>
-      </Form>
-    );
-  }
-}
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    background: state.isSelected ? "#DCDCDC" : "#f5f5f5",
+    padding: 10,
+    borderBottom: "0px",
+    color: "#000"
+  }),
+  control: (provided, state) => ({
+    ...provided,
+    background: "#f5f5f5",
+    border: "0px",
+    borderRadius: "10px",
+    boxShadow: "none"
+    // none of react-select's styles are passed to <Control />
+  }),
+  input: provided => ({
+    ...provided,
+    color: "#DCDCDC"
+  }),
+  menu: (provided, state) => ({
+    ...provided,
+    background: "#f5f5f5",
+    boxShadow: "none",
+    marginTop: "10px",
+    padding: 0,
+    borderRadius: "10px",
+    overflow: "hidden"
+  })
+};

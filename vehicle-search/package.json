@@ -1,18 +1,18 @@
 {
   "name": "vehicle-search",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "http://ajhenry.github.io/searchable-car-database",
   "private": true,
   "dependencies": {
     "node-gyp": "^4.0.0",
-    "pouchdb": "^7.0.0",
-    "pouchdb-browser": "^7.0.0",
-    "pouchdb-find": "^7.0.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.0",
-    "react-select": "^2.4.3",
-    "reactstrap": "^8.0.0"
+    "pouchdb": "^7.1.1",
+    "pouchdb-browser": "^7.1.1",
+    "pouchdb-find": "^7.1.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts": "^3.3.0",
+    "react-select": "^3.0.8",
+    "reactstrap": "^8.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,6 +38,6 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.0.1"
+    "gh-pages": "^2.1.1"
   }
 }

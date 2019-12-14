@@ -100,6 +100,7 @@ export default props => {
 
   useEffect(() => {
     _checkDb();
+    // eslint-disable-next-line
   }, []);
 
   return (

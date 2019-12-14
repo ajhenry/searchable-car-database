@@ -1,14 +1,14 @@
 # Searchable Car Database
 
-This is a searchable car database with 40,000+ entries from 1987-2019. Includes data items like make, model, year, transmission type, fuel economy data, etc. There are two different formats you can download the dataset in, JSON and CSV. There is also a link to a react app that utilizes the data along with [PouchDb](https://pouchdb.com/) to create a browser based database with indexing.
+This is a searchable car database with 40,000+ entries from 1987-2020. Includes data items like make, model, year, transmission type, fuel economy data, etc. There are two different formats you can download the dataset in, JSON and CSV. There is also a link to a react app that utilizes the data along with [PouchDb](https://pouchdb.com/) to create a browser based database with indexing.
 
 __Note:__ The dataset that is used to populate the database for the search webapp takes awhile to load into browser memory and create indexes on
 
-All data is from [fueleconomy.gov](fueleconomy.gov) and you may download this dataset from their [website](https://www.fueleconomy.gov/feg/download.shtml) too.
+All data is from [https://fueleconomy.gov](fueleconomy.gov) and you may download this dataset from their [website](https://www.fueleconomy.gov/feg/download.shtml) too.
 
 ## Getting Started
 
-`parser.py` is used to transform the data from CSV to JSON format. Use `parser.py --help` to see a list of required inputs\
+`parser.py` is used to transform the data from CSV to JSON format. Use `parser.py --help` to see a list of required inputs
 
 ```sh
 pip install pipenv

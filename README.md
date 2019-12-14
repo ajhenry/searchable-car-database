@@ -4,7 +4,7 @@ This is a searchable car database with 40,000+ entries from 1987-2020. Includes 
 
 __Note:__ The dataset that is used to populate the database for the search webapp takes awhile to load into browser memory and create indexes on
 
-All data is from [https://fueleconomy.gov](fueleconomy.gov) and you may download this dataset from their [website](https://www.fueleconomy.gov/feg/download.shtml) too.
+All data is from [fueleconomy.gov](https://fueleconomy.gov) and you may download this dataset from their [website](https://www.fueleconomy.gov/feg/download.shtml) too.
 
 ## Getting Started
 
